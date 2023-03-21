@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -23,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         Divisao
     }
 
-    Operacoes operacaoAtual = Operacoes.Soma;
 
     //Botoes operações
     ImageButton buttonSum = (ImageButton)findViewById(R.id.buttonSum);
@@ -42,7 +43,26 @@ public class MainActivity extends AppCompatActivity {
     //Resultado
     TextView textResultado = (TextView) findViewById(R.id.textResultado);
 
+
+   //Variaveis inicias
+    Operacoes operacaoAtual = Operacoes.Soma;
     float resultado = 0;
+
+    List<Float> memoria;
+
+
+    public void SetOperacaoAtual(Operacoes operacao){
+        operacaoAtual = operacao;
+    }
+
+    public void AddNumberToMemory(float number){
+        memoria.add(number);
+    }
+
+    public float GetCurrentMemoryNumber(){
+        return memoria.get(memoria.lastIndexOf(memoria));
+    }
+
 
     public void Calcular(){
         float num1 = Float.parseFloat(String.valueOf(input1.getText()));
@@ -72,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
+
+        AddNumberToMemory(resultado);
     }
 
 
