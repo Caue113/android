@@ -33,12 +33,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         input1 = (EditText) findViewById(R.id.inputValor1);
         input2 = (EditText) findViewById(R.id.inputValor2);
 
         //Resultado
-        TextView textResultado = (TextView) findViewById(R.id.textResultado);
+        textResultado = (TextView) findViewById(R.id.textResultado);
 
         //Coisas de MR MC M+ e M-
         Button buttonMemoriaResult = findViewById(R.id.btnMemoriaResult);
@@ -182,12 +181,13 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 break;
+            default:
+
         }
 
         //AddNumberToMemory(resultado);
 
-        //textResultado.setText(String.valueOf(resultado)); PORQUE NAO FUNCIONA:?????????????????????????????????????????????????????????????????????????????????
-        Toast.makeText(getApplicationContext(), String.valueOf(resultado), Toast.LENGTH_LONG).show(); //funciona :)
+        textResultado.setText(String.valueOf(resultado));
     }
 
 }
