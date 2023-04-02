@@ -2,6 +2,7 @@ package com.example.test_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         Button buttonMemoriaSub = (Button)findViewById(R.id.btnMemoriaSubtract);
         Button buttonMemoriaSave = (Button)findViewById(R.id.btnMemoriaSave);
 
+        Button buttonMemoriaOpenHistory =  (Button)findViewById(R.id.btnOpenMemoryHistory);
+
         buttonMemoriaSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SumToMemory(-resultado);
+            }
+        });
+
+        buttonMemoriaOpenHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenMemoryHistory();
             }
         });
 
@@ -149,6 +159,11 @@ public class MainActivity extends AppCompatActivity {
         memoria.add(sum);   //Não sobreescrevemos o número, mas adicionamos na memória a operação
         memory += number;
         Log.println(Log.INFO, "SumToMemory()", "Sucess: " + sum);
+    }
+
+    public void OpenMemoryHistory(){
+        Intent intent = new Intent(this, MemoryHistory.class);
+        startActivity(intent);
     }
     //-------------------------------------
 
