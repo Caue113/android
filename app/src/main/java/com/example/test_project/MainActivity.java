@@ -1,10 +1,8 @@
 package com.example.test_project;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -12,15 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     int operacaoAtual = 1; //1-soma 2-subtração 3-multiplicação 4-divisão
     float resultado = 0;
-    List<Float> memoria;
+    List<Float> memoria = new ArrayList<Float>();
     float memory = 0; //mudar imediatamente
 
     //Inputs
@@ -42,12 +40,20 @@ public class MainActivity extends AppCompatActivity {
         //Coisas de MR MC M+ e M-
         Button buttonMemoriaResult = findViewById(R.id.btnMemoriaResult);
         Button buttonMemoriaClear = (Button)findViewById(R.id.btnMemoriaClear);
-        Button buttonMemoriaSoma = (Button)findViewById(R.id.btnMemoriaSoma);
-        Button buttonMemoriaSub = (Button)findViewById(R.id.btnMemoriaSub);
+        Button buttonMemoriaSoma = (Button)findViewById(R.id.btnMemoriaSum);
+        Button buttonMemoriaSub = (Button)findViewById(R.id.btnMemoriaSubtract);
+        Button buttonMemoriaSave = (Button)findViewById(R.id.btnMemoriaSave);
+
+        buttonMemoriaSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddNumberToMemory(resultado);
+            }
+        });
         buttonMemoriaResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textResultado.setText(String.valueOf(memory));
+                textResultado.setText(String.valueOf(GetCurrentMemoryNumber()));
             }
         });
 
@@ -61,14 +67,14 @@ public class MainActivity extends AppCompatActivity {
         buttonMemoriaSoma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddToMemory(resultado);
+                SumToMemory(resultado);
             }
         });
 
         buttonMemoriaSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddToMemory(-resultado);
+                SumToMemory(-resultado);
             }
         });
 
@@ -126,21 +132,28 @@ public class MainActivity extends AppCompatActivity {
     //consertar dps
     public void AddNumberToMemory(float number){
         memoria.add(number);
+        Log.println(Log.INFO, "addToMemory()", "Sucess. Added: " + number);
     }
 
     //-------------------------------------
     // MR MC M+ M-
     public void ClearMemory(){
+        memoria.clear();
         memory = 0;
+        Log.println(Log.INFO, "ClearMemory()", "Memory Cleaned: " + memoria);
     }
 
-    public void AddToMemory(float number){
+    public void SumToMemory(float number){
+        Log.println(Log.INFO, "SumToMemory()", "start");
+        float sum = GetCurrentMemoryNumber() + number;
+        memoria.add(sum);   //Não sobreescrevemos o número, mas adicionamos na memória a operação
         memory += number;
+        Log.println(Log.INFO, "SumToMemory()", "Sucess: " + sum);
     }
     //-------------------------------------
 
     public float GetCurrentMemoryNumber(){
-        return memoria.get(memoria.lastIndexOf(memoria));
+        return memoria.get(memoria.size() - 1);
     }
 
     public void Calcular(){
