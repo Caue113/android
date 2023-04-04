@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     int operacaoAtual = 1; //1-soma 2-subtração 3-multiplicação 4-divisão
     float resultado = 0;
-    List<Float> memoria = new ArrayList<Float>();
+    List<Float> historicoResultados = new ArrayList<Float>();
     float memory = 0; //mudar imediatamente
 
     //Inputs
@@ -141,34 +141,42 @@ public class MainActivity extends AppCompatActivity {
 
     //consertar dps
     public void AddNumberToMemory(float number){
-        memoria.add(number);
+        historicoResultados.add(number);
         Log.println(Log.INFO, "addToMemory()", "Sucess. Added: " + number);
     }
 
     //-------------------------------------
     // MR MC M+ M-
     public void ClearMemory(){
-        memoria.clear();
+        historicoResultados.clear();
         memory = 0;
-        Log.println(Log.INFO, "ClearMemory()", "Memory Cleaned: " + memoria);
+        Log.println(Log.INFO, "ClearMemory()", "Memory Cleaned: " + historicoResultados);
     }
 
     public void SumToMemory(float number){
         Log.println(Log.INFO, "SumToMemory()", "start");
         float sum = GetCurrentMemoryNumber() + number;
-        memoria.add(sum);   //Não sobreescrevemos o número, mas adicionamos na memória a operação
+        historicoResultados.add(sum);   //Não sobreescrevemos o número, mas adicionamos na memória a operação
         memory += number;
         Log.println(Log.INFO, "SumToMemory()", "Sucess: " + sum);
     }
 
     public void OpenMemoryHistory(){
         Intent intent = new Intent(this, MemoryHistory.class);
+
+        for(int i = 0; i< historicoResultados.size(); i++){
+            intent.putExtra("historicoResultados-"+String.valueOf(i), historicoResultados.get(i));
+        }
         startActivity(intent);
     }
     //-------------------------------------
 
     public float GetCurrentMemoryNumber(){
-        return memoria.get(memoria.size() - 1);
+        if(!historicoResultados.isEmpty() && historicoResultados.get(historicoResultados.size() - 1) != null){
+            float lastNumber = historicoResultados.get(historicoResultados.size() - 1);
+            return lastNumber;
+        }
+        return -1;
     }
 
     public void Calcular(){
