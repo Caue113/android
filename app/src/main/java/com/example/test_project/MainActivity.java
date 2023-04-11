@@ -2,6 +2,7 @@ package com.example.test_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -237,6 +239,8 @@ public class MainActivity extends AppCompatActivity {
 
         File file = new File("C:\\Users\\6110574\\Desktop\\HistoricoCalculos.txt");
         OutputStreamWriter out = new OutputStreamWriter();
+        FileOutputStream fos = context.openFileOutput(file.getName(), Context.MODE_PRIVATE)
+        fos.write(fileContents.toByteArray());
 
     }
 
