@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -220,10 +224,20 @@ public class MainActivity extends AppCompatActivity {
             default:
 
         }
-
-        //AddNumberToMemory(resultado);
-
         textResultado.setText(String.valueOf(resultado));
+    }
+
+    public void WriteHistoricToFile(){
+        //Lets create an easy interface to append data
+        StringBuilder stringBuilder = new StringBuilder();
+
+        historicoResultados.forEach(value -> {
+            stringBuilder.append(value);
+        });
+
+        File file = new File("C:\\Users\\6110574\\Desktop\\HistoricoCalculos.txt");
+        OutputStreamWriter out = new OutputStreamWriter();
+
     }
 
 }
