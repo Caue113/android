@@ -1,10 +1,15 @@
 package com.example.test_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -12,17 +17,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    Context context;
     int operacaoAtual = 1; //1-soma 2-subtração 3-multiplicação 4-divisão
     float resultado = 0;
     List<Float> historicoResultados = new ArrayList<Float>();
@@ -38,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        context = getApplicationContext();
+
         input1 = (EditText) findViewById(R.id.inputValor1);
         input2 = (EditText) findViewById(R.id.inputValor2);
 
@@ -51,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
         Button buttonMemoriaSub = (Button)findViewById(R.id.btnMemoriaSubtract);
         Button buttonMemoriaSave = (Button)findViewById(R.id.btnMemoriaSave);
 
-        Button buttonMemoriaOpenHistory =  (Button)findViewById(R.id.btnOpenMemoryHistory);
+        Button buttonMemoriaOpenHistory =  (Button)findViewById(R.id.buttonOpenMemoryHistory);
+        Button buttonSaveHistoryToFile =  (Button)findViewById(R.id.buttonSaveHistoryToFile);
 
         buttonMemoriaSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +103,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OpenMemoryHistory();
+            }
+        });
+
+        buttonSaveHistoryToFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RequestStoragePermission();
+
+                try {
+                    WriteHistoricToFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         });
 
@@ -229,19 +256,69 @@ public class MainActivity extends AppCompatActivity {
         textResultado.setText(String.valueOf(resultado));
     }
 
-    public void WriteHistoricToFile(){
+    /***
+     * Creates a file if not exist and writes the historic of calculator's memory.
+     * ALERT - TO CHECK THE GENERETED FILE, YOU MUST ACCESS IT VIA: View > Tools Window > Device File Explorer
+     * Root path of file: /storage/emulated/0/
+     * @throws IOException
+     */
+    public void WriteHistoricToFile() throws IOException {
         //Lets create an easy interface to append data
         StringBuilder stringBuilder = new StringBuilder();
 
+        //Populate data to write into file
         historicoResultados.forEach(value -> {
             stringBuilder.append(value);
+            stringBuilder.append(";\n");
+            Log.println(Log.INFO, "WriteHistoricToFile()", "Sucess. Added: " + value);
+            Log.println(Log.INFO, "WriteHistoricToFile()", stringBuilder.toString());
         });
 
-        File file = new File("C:\\Users\\6110574\\Desktop\\HistoricoCalculos.txt");
-        OutputStreamWriter out = new OutputStreamWriter();
-        FileOutputStream fos = context.openFileOutput(file.getName(), Context.MODE_PRIVATE)
-        fos.write(fileContents.toByteArray());
+        //Configuring where to write
+        File root = new File(Environment.getExternalStorageDirectory(), "MyNotes");
+        Log.println(Log.INFO, "PathChecking", Environment.getExternalStorageDirectory().toString());
 
+        //Create root folder if not exist
+        if(!root.exists()){
+            root.mkdirs();
+        }
+
+        //Create file if not exist
+        File fileResultHistory = new File(root, "HistoricoResultados.txt");
+        if(!fileResultHistory.exists()){
+            Log.println(Log.INFO, "file", "CREATEING NEW FILE");
+            fileResultHistory.createNewFile();
+        }
+
+        //Writing it to file
+        try{
+            FileWriter writer = new FileWriter(fileResultHistory);
+            writer.write(stringBuilder.toString());
+            writer.close();
+            Toast.makeText(context, "Saved File", Toast.LENGTH_SHORT).show();
+        }catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    /**
+     * This section creates requirement to user by asking permission to allow Read/Write.
+     */
+    int REQUEST_CODE_STORAGE_PERMISSION = 100;
+    private void RequestStoragePermission() {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Request the permission
+            ActivityCompat.requestPermissions(this,
+                    new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                    REQUEST_CODE_STORAGE_PERMISSION);
+        } else {
+            // Permission has already been granted
+            //A response should be thrown here for UX reasons
+        }
     }
 
 }

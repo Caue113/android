@@ -7,17 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textResultado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:text="Resultado"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent" />
-
     <EditText
         android:id="@+id/inputValor1"
         android:layout_width="wrap_content"
@@ -45,74 +34,15 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <ImageButton
-        android:id="@+id/buttonSubtraction"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginStart="212dp"
-        android:layout_marginTop="308dp"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/minus"
-        tools:ignore="MissingConstraints" />
-
-    <ImageButton
-        android:id="@+id/buttonSum"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="308dp"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/add"
-        tools:ignore="MissingConstraints" />
-
-    <ImageButton
-        android:id="@+id/buttonMultiply"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="432dp"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/remove"
-        tools:ignore="MissingConstraints" />
-
-    <ImageButton
-        android:id="@+id/buttonDivision"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginStart="212dp"
-        android:layout_marginTop="432dp"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/divide"
-        tools:ignore="MissingConstraints" />
-
     <Button
-        android:id="@+id/buttonCalcular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="560dp"
-        android:text="Calcular"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/btnMemoriaResult"
+        android:id="@+id/btnMemoriaSave"
         android:layout_width="50dp"
         android:layout_height="0dp"
-        android:layout_marginStart="308dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="196dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:text="MR"
+        android:text="MS"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -122,8 +52,8 @@
         android:id="@+id/btnMemoriaSum"
         android:layout_width="50dp"
         android:layout_height="0dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="196dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="M+"
@@ -135,8 +65,8 @@
         android:id="@+id/btnMemoriaSubtract"
         android:layout_width="50dp"
         android:layout_height="0dp"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="196dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="M-"
@@ -148,8 +78,8 @@
         android:id="@+id/btnMemoriaClear"
         android:layout_width="50dp"
         android:layout_height="0dp"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="196dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="MC"
@@ -158,29 +88,111 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/btnMemoriaSave"
+        android:id="@+id/btnMemoriaResult"
         android:layout_width="50dp"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginStart="312dp"
+        android:layout_marginTop="196dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:text="MS"
+        android:text="MR"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
+    <ImageButton
+        android:id="@+id/buttonSum"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="260dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/add"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/buttonSubtraction"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="260dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/minus"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/buttonMultiply"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="384dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/remove"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/buttonDivision"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="384dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/divide"
+        tools:ignore="MissingConstraints" />
+
     <Button
-        android:id="@+id/btnOpenMemoryHistory"
+        android:id="@+id/buttonCalcular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="512dp"
+        android:text="Calcular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="140dp"
+        android:text="Resultado"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonOpenMemoryHistory"
         android:layout_width="153dp"
         android:layout_height="43dp"
         android:layout_marginStart="136dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="80dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="Ver Historico"
         android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/buttonSaveHistoryToFile"
+        android:layout_width="258dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="24dp"
+        android:text="Salvar Historico como"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
